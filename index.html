@@ -335,9 +335,12 @@
     
     
     
-
-    <!-- Hero Banner -->
-    
+<div class="search-bar-container text-center">
+    <div class="search-bar col-md-12 col-lg-12 col-sm-12 pt-5">
+        <input type="text" id="search-input" placeholder="Search partners..." style="width: 30%; border-radius: 20px; border: 1px solid #002B7F; padding: 10px;">
+        <button id="search-button" class="btn btn-primary" type="submit">Search</button>
+    </div>
+</div>
 
     <!-- Main Content -->
     <div class="container my-5 d-flex">
@@ -411,18 +414,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
+            let partnersData = []; // Store partners data
 
-            
             // Load partners data
             $.getJSON('data/partners.json', function(data) {
-                const partnersGrid = $('#partners-grid');
+                partnersData = data.partners; // Save data to variable
+                populatePartners(partnersData); // Populate initial partners grid
+            });
 
-                
-                
-                // Populate partners grid
-                data.partners.forEach(partner => {
+            function populatePartners(partners) {
+                const partnersGrid = $('#partners-grid');
+                partnersGrid.empty(); // Clear existing content
+
+                partners.forEach(partner => {
                     const partnerCard = `
-                    
                         <div class="col-md-8 col-lg-8 col-sm-12 partner-card" data-category="${partner.category}" style="margin-bottom: 18px;">
                             <div class="card" style="width: 100%; height: auto; border: none; background: none;">
                                 <div class="row align-items-center" style="margin: 4px 4px;">
@@ -436,7 +441,6 @@
                                                 <div class="tags">
                                                     <ul class="tags-list" style="display: flex; list-style: none; padding: 0; gap: 4px;">
                                                         ${partner.tags.map(tag => `<li class="badge rounded-pill bg-primary" style="font-size: 10px; display: flex; margin-bottom: 4px;">${tag}</li>`).join('')}
-                                                        
                                                     </ul>
                                                 </div>
                                             </div>
@@ -446,17 +450,13 @@
                                                 <p class="card-text" style="font-size: 14px;">${partner.description}</p>
                                                 <p class="card-text"><small class="text-muted">${partner.address}</small></p>
                                                 <p class="card-text"><small class="text-muted"><i class="fas fa-phone"></i> ${partner.phone}</small></p>
-                                                
                                                 <a href="http://${partner.website}" class="btn btn-primary" target="_blank" style="display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 16px;">Visit Website</a>
                                             </div>
                                             <div class="col-md-6 col-lg-3 col-sm-12">
-                                                
                                                 <p class="card-text" style="font-size: 14px;">More details about the partner</p>
-                                                
                                                 <div class="social-icons" style="margin-bottom: 12px;">
                                                     <a href="${partner.facebook}" target="_blank" style="margin-right: 10px;"><i class="fab fa-facebook-f"></i></a>
                                                     <a href="${partner.instagram}" target="_blank" style="margin-right: 10px;"><i class="fab fa-instagram"></i></a>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -467,6 +467,16 @@
                     `;
                     partnersGrid.append(partnerCard);
                 });
+            }
+
+            // Search functionality
+            $('#search-input').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                const filteredPartners = partnersData.filter(partner => 
+                    partner.name.toLowerCase().includes(searchTerm) || 
+                    partner.tags.some(tag => tag.toLowerCase().includes(searchTerm)) // Check tags
+                );
+                populatePartners(filteredPartners); // Populate grid with filtered partners
             });
 
             // Filter functionality
