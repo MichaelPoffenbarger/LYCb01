@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual City Partners - Servolution Network</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #002B7F;
+            --accent-red: #E31B23;
+            --scrollbar-color: #555;
+            --scrollbar-background: #f1f1f1;
+            --scrollbar-thumb: #555;
+            --secondary-blue: #5d729c;
+        }
+
+        body {
+            background: rgba(255, 255, 255, 0.219);
+        }
+
+        .top-bar {
+            background-color: var(--primary-blue);
+            color: rgb(46, 136, 189);
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 0 10px;
+            border-right: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .navbar {
+            padding: 15px 0;
+            background: white;
+            transition: none;
+        }
+
+        .navbar.fixed-top {
+            transition: none;
+        }
+
+        .filter-buttons {
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+
+        .filter-buttons.fixed-top {
+            transition: none;
+        }
+
+        .filter-btn {
+            margin: 5px;
+            padding: 8px 16px;
+            border: none;
+            background: white;
+            color: var(--primary-blue);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a4294 100%);
+            padding: 60px 0;
+            color: rgb(19, 54, 209);
+            position: relative;
+            overflow: hidden;
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 1s forwards; /* Apply fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* Fade to fully visible */
+            }
+        }
+
+        h5 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+        }
+
+        .partner-card {
+            background-image: linear-gradient(-225deg, rgba(255, 255, 255, 0.062), rgba(255, 255, 255, 0.062), rgba(255, 255, 255, 0.062), rgba(184, 184, 184, 0.39));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(28, 38, 187, 0.274);
+            margin-left: 2%;
+            width: 96%;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            border-style: inset;
+        }
+
+        .partner-card.hidden {
+            display: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 22px 0 rgba(31, 38, 135, 0.15);
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 22px 0 rgba(46, 46, 46, 0.425);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgb(0, 0, 0);
+        }
+
+        .tag {
+            background: rgba(190, 218, 235, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: rgb(0, 0, 0);
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            transition: all 0.3s ease;
+            border-style: inset;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tag:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .fab {
+            
+            font-size: 24px;
+            height: 32px;
+            width: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid rgb(25, 0, 255);
+            border-radius: 50%;
+            padding: 5px;
+            background-color: white;
+            color: var(--primary-blue);
+            display: inline-flex;
+        }
+
+        
+
+        .disclaimer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #E31B23;
+            color: white;
+            padding: 5px 0;
+            z-index: 1000;
+            transform: translateY(calc(100% - 40px));
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .disclaimer-bar.expanded {
+            transform: translateY(0);
+        }
+
+        .disclaimer-toggle {
+            position: absolute;
+            top: -30px;
+            right: 20px;
+            background: rgba(231, 37, 3, 0.781);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 5px 5px 0 0;
+            z-index: 1000;
+        }
+
+        .disclaimer-content {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 991px) {
+            .filter-buttons {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 15px;
+            }
+        }
+
+        .main-content {
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Custom scrollbar styles */
+        .main-content::-webkit-scrollbar {
+            width: 12px; /* Width of the scrollbar */
+        }
+
+        .main-content::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Background of the scrollbar track */
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: var(--primary-blue); /* Color of the scrollbar thumb */
+            border-radius: 10px; /* Rounded corners for the thumb */
+        }
+
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Color of the thumb on hover */
+        }
+        .filter-buttons::-webkit-scrollbar {
+            width: 12px; /* Width of the scrollbar */
+        }
+
+        .filter-buttons::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Background of the scrollbar track */
+        }
+
+        .filter-buttons::-webkit-scrollbar-thumb {
+            background: var(--primary-blue); /* Color of the scrollbar thumb */
+            border-radius: 10px; /* Rounded corners for the thumb */
+        }
+
+        .filter-buttons::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Color of the thumb on hover */
+        }
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        body::-webkit-scrollbar-thumb {
+            background: var(--secondary-blue);
+            
+        }
+        .mobile-filter-toggle {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 5%;
+            transform: translateY(-50%);
+            background: #E31B23;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 0 5px 5px 0;
+            z-index: 1000;
+            border: none;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+        }
+
+        .mobile-filter-menu {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 280px;
+            background: white;
+            z-index: 1001;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-filter-menu.show {
+            transform: translateX(0);
+        }
+
+        .mobile-filter-close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #E31B23;
+        }
+
+        @media (max-width: 768px) {
+            .filter-buttons.desktop {
+                display: none;
+            }
+
+            .mobile-filter-toggle {
+                display: block;
+            }
+
+            .mobile-filter-menu {
+                display: block;
+            }
+
+            .main-content {
+                width: 100%;
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Filter Buttons -->
+    
+    
+    
+
+    <!-- Hero Banner -->
+    
+
+    <!-- Main Content -->
+    <div class="container my-5 d-flex">
+        <!-- Desktop Filter Sidebar -->
+        <div class="filter-buttons desktop sticky-top col-md-4 col-lg-2 col-sm-4 text-center" style="z-index: 1; padding-bottom: 18px; padding-right: 10px;">
+            <div class="d-flex flex-column justify-content-center">
+                <h4 style="text-decoration: underline;" style="font-size: 18px; font-family: 'Poppins', sans-serif;">Categories</h4>
+                <button class="filter-btn active" data-category="all">All Partners</button>
+                <button class="filter-btn" data-category="construction & home services">Construction & Home Services</button>
+                <button class="filter-btn" data-category="automotive & transportation">Automotive & Transportation</button>
+                <button class="filter-btn" data-category="finance & insurance">Finance & Insurance</button>
+                <button class="filter-btn" data-category="real estate & professional services">Real Estate & Professional Services</button>
+                <button class="filter-btn" data-category="food & hospitality">Food & Hospitality</button>
+                <button class="filter-btn" data-category="health & wellness">Health & Wellness</button>
+                <button class="filter-btn" data-category="utilities & manufacturing">Utilities & Manufacturing</button>
+                <button class="filter-btn" data-category="media & marketing">Media & Marketing</button>
+                <button class="filter-btn" data-category="church partners">Church Partners</button>
+                <button class="filter-btn" data-category="other trades & services">Other Trades & Services</button>
+                <button class="filter-btn" data-category="retail">Retail</button>
+            </div>
+        </div>
+
+        <!-- Mobile Filter Toggle Button -->
+        <button class="mobile-filter-toggle" aria-label="Toggle filters menu">
+            <i class="fas fa-filter"></i>
+        </button>
+
+        <!-- Mobile Filter Menu -->
+        <div class="mobile-filter-menu text-center">
+            <button class="mobile-filter-close" aria-label="Close filters menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <h4 style="text-decoration: underline; margin-bottom: 20px;">Categories</h4>
+                <button class="filter-btn active" data-category="all">All Partners</button>
+                <button class="filter-btn" data-category="construction & home services">Construction & Home Services</button>
+                <button class="filter-btn" data-category="automotive & transportation">Automotive & Transportation</button>
+                <button class="filter-btn" data-category="finance & insurance">Finance & Insurance</button>
+                <button class="filter-btn" data-category="real estate & professional services">Real Estate & Professional Services</button>
+                <button class="filter-btn" data-category="food & hospitality">Food & Hospitality</button>
+                <button class="filter-btn" data-category="health & wellness">Health & Wellness</button>
+                <button class="filter-btn" data-category="utilities & manufacturing">Utilities & Manufacturing</button>
+                <button class="filter-btn" data-category="media & marketing">Media & Marketing</button>
+                <button class="filter-btn" data-category="church partners">Church Partners</button>
+                <button class="filter-btn" data-category="other trades & services">Other Trades & Services</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content col-md-8 col-lg-10 col-sm-8">
+            <div class="row" id="partners-grid">
+                <!-- Dynamic content goes here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Disclaimer Bar -->
+    <div class="disclaimer-bar">
+        <button class="disclaimer-toggle">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <div class="container">
+            <div class="disclaimer-content">
+                <h4 class="mb-3">DISCLAIMER</h4>
+                <p>Servolution Network values its partners but cannot guarantee any warranties on the goods or services of Love YOUR City Partners companies. By using these partners, you acknowledge that Servolution Network is not responsible for their offerings. It is your responsibility to verify the pricing, quality, and performance of each company. For issues, contact the partner directly. If unresolved, provide feedback to us.</p>
+                <p class="mb-0">This list is a way for Servolution Network to thank businesses that have partnered with us while simultaneously serving the community with recommendations to people we have worked alongside. We aim to maintain and grow our alliance to better serve the community. Thank you for visiting our page.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            
+            // Load partners data
+            $.getJSON('data/partners.json', function(data) {
+                const partnersGrid = $('#partners-grid');
+
+                
+                
+                // Populate partners grid
+                data.partners.forEach(partner => {
+                    const partnerCard = `
+                    
+                        <div class="col-md-8 col-lg-8 col-sm-12 partner-card" data-category="${partner.category}" style="margin-bottom: 18px;">
+                            <div class="card" style="width: 100%; height: auto; border: none; background: none;">
+                                <div class="row align-items-center" style="margin: 4px 4px;">
+                                    <img src="${partner.image}" class="card-img-logo col-md-12 col-lg-3 col-sm-12" alt="${partner.name}" style="max-width: 100%; max-height: 200px; object-fit: contain;">
+                                    <div class="card-body col-md-8 col-lg-8 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                                <h5 class="card-title">${partner.name}</h5>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                                <div class="tags">
+                                                    <ul class="tags-list" style="display: flex; list-style: none; padding: 0; gap: 4px;">
+                                                        ${partner.tags.map(tag => `<li class="badge rounded-pill bg-primary" style="font-size: 10px; display: flex; margin-bottom: 4px;">${tag}</li>`).join('')}
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="card-text-container col-md-6 col-lg-6 col-sm-12">
+                                                <p class="card-text" style="font-size: 14px;">${partner.description}</p>
+                                                <p class="card-text"><small class="text-muted">${partner.address}</small></p>
+                                                <p class="card-text"><small class="text-muted"><i class="fas fa-phone"></i> ${partner.phone}</small></p>
+                                                
+                                                <a href="http://${partner.website}" class="btn btn-primary" target="_blank" style="display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 16px;">Visit Website</a>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 col-sm-12">
+                                                
+                                                <p class="card-text" style="font-size: 14px;">More details about the partner</p>
+                                                
+                                                <div class="social-icons" style="margin-bottom: 12px;">
+                                                    <a href="${partner.facebook}" target="_blank" style="margin-right: 10px;"><i class="fab fa-facebook-f"></i></a>
+                                                    <a href="${partner.instagram}" target="_blank" style="margin-right: 10px;"><i class="fab fa-instagram"></i></a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    partnersGrid.append(partnerCard);
+                });
+            });
+
+            // Filter functionality
+            $('.filter-btn').click(function() {
+                const category = $(this).data('category');
+                
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                if (category === 'all') {
+                    $('.partner-card').removeClass('hidden');
+                } else {
+                    $('.partner-card').each(function() {
+                        $(this).toggleClass('hidden', $(this).data('category') !== category);
+                    });
+                }
+            });
+
+            $('.mobile-filter-toggle').click(function() {
+                $('.mobile-filter-menu').addClass('show');
+                $('body').css('overflow', 'hidden'); // Prevent scrolling when menu is open
+            });
+
+            $('.mobile-filter-close').click(function() {
+                $('.mobile-filter-menu').removeClass('show');
+                $('body').css('overflow', ''); // Restore scrolling
+            });
+
+            // Handle filter clicks (both mobile and desktop)
+            $('.filter-btn').click(function() {
+                const category = $(this).data('category');
+                $('.filter-btn').removeClass('active');
+                $('.filter-btn[data-category="' + category + '"]').addClass('active');
+                
+                // Close mobile menu after selection
+                $('.mobile-filter-menu').removeClass('show');
+                $('body').css('overflow', '');
+                
+                // Your existing filter logic here
+                loadPartners(category);
+            });
+
+            // Disclaimer toggle
+            $('.disclaimer-toggle').click(function() {
+                const disclaimerBar = $('.disclaimer-bar');
+                const isExpanded = disclaimerBar.hasClass('expanded');
+                
+                disclaimerBar.toggleClass('expanded');
+                $(this).html(isExpanded ? 
+                    '<i class="fas fa-chevron-up"></i>' : 
+                    '<i class="fas fa-chevron-down"></i>'
+                );
+            });
+
+            
+
+            // Sticky navbar (without smooth scroll)
+            
+
+            // Mobile menu collapse
+            $('.navbar-nav>li>a').on('click', function(){
+                $('.navbar-collapse').collapse('hide');
+            });
+
+
+        
+       
+        });
+    </script>
+</body>
+</html>
