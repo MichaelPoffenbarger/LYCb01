@@ -21,6 +21,7 @@
 
         body {
             background: rgba(255, 255, 255, 0.219);
+            overflow-y: hidden;
         }
 
         .top-bar {
@@ -102,10 +103,10 @@
             -webkit-backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 3px solid rgba(255, 255, 255, 0.2);
-            padding: 2rem;
+            padding: 1rem;
             box-shadow: 0 8px 32px 0 rgba(28, 38, 187, 0.274);
-            margin-left: 2%;
-            width: 96%;
+            margin-left: 1%;
+            width: 98%;
             transform: translateY(0);
             transition: transform 0.3s ease;
             border-style: inset;
@@ -118,21 +119,21 @@
         .btn-primary {
             background: var(--primary-blue);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 10px 20px;
             border-radius: 20px;
-            box-shadow: 0 2px 22px 0 rgba(31, 38, 135, 0.15);
+            box-shadow: 0 2px 22px 0 rgba(31, 38, 135, 0.041);
             color: rgb(255, 255, 255);
             font-size: 16px;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 22px 0 rgba(46, 46, 46, 0.425);
+            box-shadow: 0 2px 4px 0 rgba(46, 46, 46, 0.425);
         }
 
         .btn-primary:hover {
             background: rgba(255, 255, 255, 0.2);
-            color: rgb(0, 0, 0);
+            color: var(--primary-blue);
         }
 
         .tag {
@@ -326,6 +327,9 @@
                 width: 100%;
                 padding: 0 15px;
             }
+            p {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -439,21 +443,26 @@
                                             </div>
                                             <div class="col-md-6 col-lg-6 col-sm-6">
                                                 <div class="tags">
-                                                    <ul class="tags-list" style="display: flex; list-style: none; padding: 0; gap: 4px;">
-                                                        ${partner.tags.map(tag => `<li class="badge rounded-pill bg-primary" style="font-size: 10px; display: flex; margin-bottom: 4px;">${tag}</li>`).join('')}
+                                                    <ul class="tags-list" style="display: flex; list-style: none; padding: 0; gap: 4px; flex-wrap: wrap; max-width: 100%;">
+                                                        ${partner.tags.map(tag => `
+                                                            <li class="badge rounded-pill bg-primary" style="font-size: 10px; display: flex; margin-bottom: 4px; white-space: nowrap; box-shadow: 0 2px 4px 0 rgba(46, 46, 46, 0.425);">
+                                                                ${tag}
+                                                            </li>
+                                                        `).join('')}
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="card-text-container col-md-6 col-lg-6 col-sm-12">
-                                                <p class="card-text" style="font-size: 14px;">${partner.description}</p>
+                                                <p class="card-text" style="font-size: 12px;">${partner.description}</p>
                                                 <p class="card-text"><small class="text-muted">${partner.address}</small></p>
                                                 <p class="card-text"><small class="text-muted"><i class="fas fa-phone"></i> ${partner.phone}</small></p>
                                                 <a href="http://${partner.website}" class="btn btn-primary" target="_blank" style="display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 16px;">Visit Website</a>
                                             </div>
                                             <div class="col-md-6 col-lg-3 col-sm-12">
-                                                <p class="card-text" style="font-size: 14px;">More details about the partner</p>
+                                                <p class="card-text" style="font-size: 14px; text-decoration: underline; font-weight: bold; color: var(--primary-blue);">Why We Give</p>
+                                                
                                                 <div class="social-icons" style="margin-bottom: 12px;">
                                                     <a href="${partner.facebook}" target="_blank" style="margin-right: 10px;"><i class="fab fa-facebook-f"></i></a>
                                                     <a href="${partner.instagram}" target="_blank" style="margin-right: 10px;"><i class="fab fa-instagram"></i></a>
